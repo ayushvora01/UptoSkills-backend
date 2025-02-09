@@ -1,12 +1,10 @@
-const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-
-const router = express.Router();
+require("dotenv").config();
 
 // Register User
-router.post("/register", async (req, res) => {
+exports.registerUser = async (req, res) => {
     const { username, email, password } = req.body;
 
     try {
@@ -24,10 +22,10 @@ router.post("/register", async (req, res) => {
         console.error("Error during registration:", err.message);
         res.status(500).json({ msg: "Server Error" });
     }
-});
+};
 
 // Login User
-router.post("/login", async (req, res) => {
+exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -45,6 +43,4 @@ router.post("/login", async (req, res) => {
         console.error("Error during login:", err.message);
         res.status(500).json({ msg: "Server Error" });
     }
-});
-
-module.exports = router;
+};
